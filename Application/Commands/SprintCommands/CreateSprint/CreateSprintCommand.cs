@@ -3,9 +3,11 @@
 
 namespace Application.Commands.SprintCommands.CreateSprint
 {
-    public class CreateSprintProjectCommand : IRequest<Unit>
+    public class CreateSprintCommand : IRequest<Unit>
     {
         public string? SprintName { get;  set; }
         public int ProjectId { get;  set; }
+        public DateTime StartDate { get;  set; }
+        public DateTime EndDate { get;  set; }
     }
 }

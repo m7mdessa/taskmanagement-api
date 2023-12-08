@@ -20,7 +20,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("Project/CreateSprint")]
-        public async Task<ActionResult> CreateSprint([FromBody] CreateSprintProjectCommand sprint)
+        public async Task<ActionResult> CreateSprint([FromBody] CreateSprintCommand sprint)
         {
             await _mediator.Send(sprint);
             return Ok();

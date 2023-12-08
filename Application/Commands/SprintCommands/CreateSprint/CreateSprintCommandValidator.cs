@@ -1,13 +1,12 @@
-﻿using Domain.Aggregates.ProjectAggregate;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Application.Commands.SprintCommands.CreateSprint
 
 {
-    public class CreateSprintProjectCommandValidator : AbstractValidator<CreateSprintProjectCommand>
+    public class CreateSprintCommandValidator : AbstractValidator<CreateSprintCommand>
     {
 
-        public CreateSprintProjectCommandValidator()
+        public CreateSprintCommandValidator()
         {
 
             RuleFor(p => p.SprintName)

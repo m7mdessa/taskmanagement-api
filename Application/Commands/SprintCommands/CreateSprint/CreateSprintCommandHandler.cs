@@ -4,25 +4,25 @@ using MediatR;
 
 namespace Application.Commands.SprintCommands.CreateSprint
 {
-    public class CreateSprintProjectCommandHandler : IRequestHandler<CreateSprintProjectCommand, Unit>
+    public class CreateSprintCommandHandler : IRequestHandler<CreateSprintCommand, Unit>
     {
         private readonly IProjectRepository _projectRepository;
 
 
-        public CreateSprintProjectCommandHandler(IProjectRepository projectRepository)
+        public CreateSprintCommandHandler(IProjectRepository projectRepository)
         {
 
             _projectRepository = projectRepository;
         }
 
         
-        public async Task<Unit> Handle(CreateSprintProjectCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateSprintCommand request, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetAsync(request.ProjectId);
 
             if(project != null)
             {
-                var sprint = new Sprint(request.SprintName, request.ProjectId);
+                var sprint = new Sprint(request.SprintName, request.StartDate, request.EndDate, request.ProjectId);
 
                 project.AddSprint(sprint);
 

@@ -70,7 +70,7 @@ builder.Services.AddTransient<IRequestHandler<GetSprintTaskListQuery, List<GetSp
 builder.Services.AddTransient<IRequestHandler<GetSprintTaskDetailsQuery, GetSprintTaskDetailsDto>, GetSprintTaskDetailsQueryHandler>();
 
 builder.Services.AddTransient<IRequestHandler<DeleteSprintCommand, Unit>, DeleteSprintCommandHandler>();
-builder.Services.AddTransient<IRequestHandler<CreateSprintProjectCommand, Unit>, CreateSprintProjectCommandHandler>();
+builder.Services.AddTransient<IRequestHandler<CreateSprintCommand, Unit>, CreateSprintCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<UpdateSprintCommand, Unit>, UpdateSprintCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<GetSprintListQuery, List<GetSprintListDto>>, GetSprintListQueryHandler>();
 builder.Services.AddTransient<IRequestHandler<GetSprintDetailsQuery, GetSprintDetailsDto>, GetSprintDetailsQueryHandler>();

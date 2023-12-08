@@ -21,11 +21,11 @@ namespace Domain.Aggregates.ProjectAggregate
         private Sprint() {}
       
 
-        public Sprint(string? sprintName, int projectId)
+        public Sprint(string? sprintName, DateTime startDate, DateTime endDate, int projectId)
         {
             SprintName = sprintName;
-            StartDate = DateTime.UtcNow;
-            EndDate = DateTime.UtcNow;
+            StartDate = startDate;
+            EndDate = endDate;
             ProjectId = projectId;
 
         }
