@@ -1,5 +1,4 @@
-﻿
-using Application.Commands.ProjectCommands.CreateProject;
+﻿using Application.Commands.ProjectCommands.CreateProject;
 using Application.Commands.ProjectCommands.DeleteProject;
 using Application.Commands.ProjectCommands.UpdateProject;
 using Application.Queries.ProjectQueries.GetProjectDetails;

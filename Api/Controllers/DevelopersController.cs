@@ -1,5 +1,4 @@
-﻿
-using Application.Commands.DeveloperCommands.CreateDeveloper;
+﻿using Application.Commands.DeveloperCommands.CreateDeveloper;
 using Application.Commands.DeveloperCommands.DeleteDeveloper;
 using Application.Commands.DeveloperCommands.UpdateDeveloper;
 using Application.Queries.DeveloperQueries.GetDeveloperDetails;

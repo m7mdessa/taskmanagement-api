@@ -44,24 +44,23 @@ namespace Api.Controllers
         [HttpGet("Project/{projectId}/SprintTask/{id}")]
         public async Task<ActionResult<GetSprintTaskDetailsDto>> GetSprintTaskById(int id, int projectId)
         {
-            var sprint = await _mediator
+            var sprintTask = await _mediator
 
            .Send(new GetSprintTaskDetailsQuery
            {
                ProjectId = projectId,
 
                Id = id
-           }
-
-            );
-            return Ok(sprint);
+           });
+            return Ok(sprintTask);
         }
 
-        [HttpPut("SprintTask/Update")]
-        public async Task<ActionResult> UpdateSprintTask([FromBody] UpdateSprintTaskCommand task)
+        [HttpPut("Project/{projectId}/SprintTask/Update")]
+        public async Task<ActionResult> UpdateSprintTask(int projectId,[FromBody] UpdateSprintTaskCommand sprintTask)
         {
+            sprintTask.ProjectId = projectId;
 
-            await _mediator.Send(task);
+            await _mediator.Send(sprintTask);
             return Ok();
 
         }
