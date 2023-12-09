@@ -34,6 +34,7 @@ using Application.Queries.DeveloperQueries.GetDeveloperList;
 using Application.Commands.DeveloperCommands.DeleteDeveloper;
 using Application.Commands.DeveloperCommands.UpdateDeveloper;
 using Application.Commands.DeveloperCommands.CreateDeveloper;
+using Application.Queries.SprintTaskQueries.GetDeveloperSprintTaskList;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,6 +68,10 @@ builder.Services.AddTransient<IRequestHandler<DeleteSprintTaskCommand, Unit>, De
 builder.Services.AddTransient<IRequestHandler<CreateSprintTaskCommand, Unit>, CreateSprintTaskCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<UpdateSprintTaskCommand, Unit>, UpdateSprintTaskCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<GetSprintTaskListQuery, List<GetSprintTaskListDto>>, GetSprintTaskListQueryHandler>();
+
+builder.Services.AddTransient<IRequestHandler<GetDeveloperSprintTaskListQuery, List<GetDeveloperSprintTaskListDto>>, GetDeveloperSprintTaskListHandler>();
+
+
 builder.Services.AddTransient<IRequestHandler<GetSprintTaskDetailsQuery, GetSprintTaskDetailsDto>, GetSprintTaskDetailsQueryHandler>();
 
 builder.Services.AddTransient<IRequestHandler<DeleteSprintCommand, Unit>, DeleteSprintCommandHandler>();

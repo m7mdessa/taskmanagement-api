@@ -1,6 +1,7 @@
 ﻿using Application.Commands.SprintTaskCommands.CreateSprintTask;
 using Application.Commands.SprintTaskCommands.DeleteSprintTask;
 using Application.Commands.SprintTaskCommands.UpdateSprintTask;
+using Application.Queries.SprintTaskQueries.GetDeveloperSprintTaskList;
 using Application.Queries.SprintTaskQueries.GetSprintTaskDetails;
 using Application.Queries.SprintTaskQueries.GetSprintTaskList;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,20 @@ namespace Api.Controllers
         }
 
 
+        [HttpGet("Project/{projectId}/DeveloperTask/{developerId}")]
+        public async Task<ActionResult<GetDeveloperSprintTaskListDto>> GetDeveloperTask(int projectId, int developerId)
+        {
+            var developerTask = await _mediator
+
+           .Send(new GetDeveloperSprintTaskListQuery
+           {
+               ProjectId = projectId,
+
+               DeveloperId = developerId
+           });
+            return Ok(developerTask);
+        }
+
         [HttpGet("Project/{projectId}/SprintTask/{id}")]
         public async Task<ActionResult<GetSprintTaskDetailsDto>> GetSprintTaskById(int id, int projectId)
         {
@@ -55,10 +70,9 @@ namespace Api.Controllers
             return Ok(sprintTask);
         }
 
-        [HttpPut("Project/{projectId}/SprintTask/Update")]
-        public async Task<ActionResult> UpdateSprintTask(int projectId,[FromBody] UpdateSprintTaskCommand sprintTask)
+        [HttpPut("Project/SprintTask/Update")]
+        public async Task<ActionResult> UpdateSprintTask([FromBody] UpdateSprintTaskCommand sprintTask)
         {
-            sprintTask.ProjectId = projectId;
 
             await _mediator.Send(sprintTask);
             return Ok();

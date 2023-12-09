@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Domain.Aggregates.DeveloperAggregate;
 using Domain.Aggregates.ProjectAggregate;
-using Domain.SharedKernel;
 using MediatR;
 
 namespace Application.Queries.SprintTaskQueries.GetSprintTaskList

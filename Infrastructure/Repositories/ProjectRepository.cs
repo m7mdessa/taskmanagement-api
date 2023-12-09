@@ -16,6 +16,18 @@ namespace Infrastructure.Repositories
                     .ThenInclude(s => s.SprintTasks)
                 .FirstOrDefaultAsync(p => p.Id == projectId);
         }
+        public async Task<Project> GetDeveloperTasksAsync(int projectId, int developerId)
+        {
+            return await _context.Projects
+                .Include(p => p.Sprints)
+                    .ThenInclude(s => s.SprintTasks)
+                .FirstOrDefaultAsync(p => p.Id == projectId);
+
+          
+        }
+
+
+
 
     }
 

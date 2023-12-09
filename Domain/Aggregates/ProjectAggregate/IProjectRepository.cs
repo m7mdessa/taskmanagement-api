@@ -8,5 +8,7 @@ namespace Domain.Aggregates.ProjectAggregate
     {
 
         Task<Project> GetProjectChildsAsync(int projectId);
+
+        Task<Project> GetDeveloperTasksAsync(int projectId, int developerId);
     }
 }
