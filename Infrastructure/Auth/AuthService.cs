@@ -1,6 +1,7 @@
 ﻿using Application.Auth;
 using Application.DTO;
 using Domain.Aggregates.DeveloperAggregate;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
@@ -34,7 +35,8 @@ namespace Infrastructure.Auth
         }
         public string Login(AuthRequest request)
         {
-            var login = _context.Developers.Where(d => d.UserLogins.Any(u => u.UserName == request.UserName))
+            var login = _context.Developers.Include(d => d.UserLogins)
+            .Where(d => d.UserLogins.Any(u => u.UserName == request.UserName))
             .Select(d => new
             {
                Developer = d,

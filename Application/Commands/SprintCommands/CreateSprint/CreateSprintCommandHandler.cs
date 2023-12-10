@@ -22,7 +22,7 @@ namespace Application.Commands.SprintCommands.CreateSprint
 
             if(project != null)
             {
-                var sprint = new Sprint(request.SprintName, request.StartDate, request.EndDate, request.ProjectId);
+                var sprint = new Sprint(request.SprintName, request.StartDate, request.EndDate, request.ProjectId ,request.SprintDescription);
 
                 project.AddSprint(sprint);
 

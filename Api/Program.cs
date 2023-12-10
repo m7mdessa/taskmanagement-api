@@ -35,6 +35,7 @@ using Application.Commands.DeveloperCommands.DeleteDeveloper;
 using Application.Commands.DeveloperCommands.UpdateDeveloper;
 using Application.Commands.DeveloperCommands.CreateDeveloper;
 using Application.Queries.SprintTaskQueries.GetDeveloperSprintTaskList;
+using Application.Commands.DeveloperCommands.UpdatePassword;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +62,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IRequestHandler<DeleteDeveloperCommand, Unit>, DeleteDeveloperCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<CreateDeveloperCommand, Unit>, CreateDeveloperCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<UpdateDeveloperCommand, Unit>, UpdateDeveloperCommandHandler>();
+builder.Services.AddTransient<IRequestHandler<UpdatePasswordCommand, Unit>, UpdatePasswordCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<GetDeveloperListQuery, List<GetDeveloperListDto>>, GetDeveloperListQueryHandler>();
 builder.Services.AddTransient<IRequestHandler<GetDeveloperDetailsQuery, GetDeveloperDetailsDto>, GetDeveloperDetailsQueryHandler>();
 

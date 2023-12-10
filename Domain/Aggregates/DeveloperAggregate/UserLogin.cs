@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel;
+﻿using Domain.Aggregates.ProjectAggregate;
+using Domain.SharedKernel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -38,5 +39,13 @@ namespace Domain.Aggregates.DeveloperAggregate
 
 
         }
+        public void Update(int developerId, string? password)
+        {
+            Password = password;
+            DeveloperId = developerId;
+
+        }
+
+      
     }
 }

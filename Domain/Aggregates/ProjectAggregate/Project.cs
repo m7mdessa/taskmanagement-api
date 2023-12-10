@@ -6,6 +6,7 @@ namespace Domain.Aggregates.ProjectAggregate
     {
 
         public string? ProjectName { get; private set; }
+        public string? ProjectDescription { get; private set; }
 
         public bool IsDeleted { get; private set; }
         public IReadOnlyList<Sprint> Sprints => _sprints.AsReadOnly();
@@ -18,15 +19,20 @@ namespace Domain.Aggregates.ProjectAggregate
 
         private Project() {}
            
-        public Project(string projectName) 
+        public Project(string projectName, string pojectDescription) 
         {
             ProjectName = projectName;
+            ProjectDescription = pojectDescription;
         }
-        public void UpdateProject(int id,string projectName)
+
+        public void UpdateProject(int id,string projectName, string pojectDescription)
         {
             Id = id;
             ProjectName = projectName;
+            ProjectDescription = pojectDescription;
+
         }
+
         public void RemoveProject(int id)
         {
             var removeProject = _sprints?.SingleOrDefault(e => e.ProjectId == id);
@@ -43,14 +49,13 @@ namespace Domain.Aggregates.ProjectAggregate
             _sprints?.Add(addSprint);
         }
 
-
-        public void UpdateSprint(int id, int projectId, string sprintName)
+        public void UpdateSprint(int id, int projectId, string sprintName, string? sprintDescription)
         {
             var update = _sprints?.FirstOrDefault(s => s.Id == id);
             if (update != null)
             {
 
-                update.Update(projectId, sprintName);
+                update.Update(projectId, sprintName, sprintDescription);
             }
 
         }

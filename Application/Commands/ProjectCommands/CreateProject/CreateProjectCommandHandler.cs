@@ -17,7 +17,7 @@ namespace Application.Commands.ProjectCommands.CreateProject
 
         public async Task<Unit> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
-            var project = new Project(request.ProjectName);
+            var project = new Project(request.ProjectName, request.ProjectDescription);
 
 
             await _projectRepository.AddAsync(project);

@@ -8,7 +8,7 @@ namespace Domain.Aggregates.ProjectAggregate
         public string? TaskName { get; private set; }
         public string? TaskDescription { get; private set; }
         public string? TaskStatus { get; private set; }
-        public DateTime TaskDuration { get; private set; }
+        public string? TaskDuration { get; private set; }
         public int SprintId { get; private set; }
         public int DeveloperId { get; private set; }
         public bool IsDeleted { get; private set; }
@@ -18,7 +18,7 @@ namespace Domain.Aggregates.ProjectAggregate
         private SprintTask() {}
         
 
-        public SprintTask(string taskName, string? taskDescription,int sprintId, int developerId, DateTime taskDuration)
+        public SprintTask(string taskName, string? taskDescription,int sprintId, int developerId, string taskDuration)
         {
             TaskName = taskName;
             TaskDescription = taskDescription;

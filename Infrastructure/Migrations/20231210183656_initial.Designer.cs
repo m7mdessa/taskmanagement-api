@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(TaskManagementContext))]
-    [Migration("20231206120004_initial11")]
-    partial class initial11
+    [Migration("20231210183656_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("DeveloperName")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
@@ -46,18 +49,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Developers", "TaskManagement");
                 });
@@ -81,6 +73,38 @@ namespace Infrastructure.Migrations
                     b.ToTable("Roles", "TaskManagement");
                 });
 
+            modelBuilder.Entity("Domain.Aggregates.DeveloperAggregate.UserLogin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("DeveloperId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeveloperId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserLogins", "TaskManagement");
+                });
+
             modelBuilder.Entity("Domain.Aggregates.ProjectAggregate.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -91,6 +115,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("ProjectDescription")
+                        .HasColumnType("text");
 
                     b.Property<string>("ProjectName")
                         .HasColumnType("text");
@@ -116,6 +143,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("SprintDescription")
+                        .HasColumnType("text");
 
                     b.Property<string>("SprintName")
                         .HasColumnType("text");
@@ -150,8 +180,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("TaskDescription")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("TaskDuration")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("TaskDuration")
+                        .HasColumnType("text");
 
                     b.Property<string>("TaskName")
                         .HasColumnType("text");
@@ -168,35 +198,24 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Aggregates.DeveloperAggregate.Developer", b =>
                 {
-                    b.HasOne("Domain.Aggregates.DeveloperAggregate.Role", "Role")
-                        .WithMany("Developer")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.OwnsOne("Domain.Aggregates.DeveloperAggregate.Address", "Address", b1 =>
                         {
                             b1.Property<int>("DeveloperId")
                                 .HasColumnType("integer");
 
                             b1.Property<string>("City")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("Country")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("State")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("Street")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("ZipCode")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.HasKey("DeveloperId");
@@ -208,6 +227,22 @@ namespace Infrastructure.Migrations
                         });
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Domain.Aggregates.DeveloperAggregate.UserLogin", b =>
+                {
+                    b.HasOne("Domain.Aggregates.DeveloperAggregate.Developer", "Developer")
+                        .WithMany("UserLogins")
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Domain.Aggregates.DeveloperAggregate.Role", "Role")
+                        .WithMany("UserLogins")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Developer");
 
                     b.Navigation("Role");
                 });
@@ -234,9 +269,14 @@ namespace Infrastructure.Migrations
                     b.Navigation("Sprint");
                 });
 
+            modelBuilder.Entity("Domain.Aggregates.DeveloperAggregate.Developer", b =>
+                {
+                    b.Navigation("UserLogins");
+                });
+
             modelBuilder.Entity("Domain.Aggregates.DeveloperAggregate.Role", b =>
                 {
-                    b.Navigation("Developer");
+                    b.Navigation("UserLogins");
                 });
 
             modelBuilder.Entity("Domain.Aggregates.ProjectAggregate.Project", b =>

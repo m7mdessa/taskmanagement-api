@@ -15,6 +15,6 @@ namespace Application.Queries.SprintTaskQueries.GetSprintTaskList
 
         public string? SprintName { get; set; }
         public string? TaskStatus { get; set; }
-        public DateTime TaskDuration { get; set; }
+        public string? TaskDuration { get; set; }
     }
 }

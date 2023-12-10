@@ -4,6 +4,7 @@ using Application.Commands.SprintTaskCommands.UpdateSprintTask;
 using Application.Queries.SprintTaskQueries.GetDeveloperSprintTaskList;
 using Application.Queries.SprintTaskQueries.GetSprintTaskDetails;
 using Application.Queries.SprintTaskQueries.GetSprintTaskList;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -41,20 +42,7 @@ namespace Api.Controllers
             return Ok();
         }
 
-
-        [HttpGet("Project/{projectId}/DeveloperTask/{developerId}")]
-        public async Task<ActionResult<GetDeveloperSprintTaskListDto>> GetDeveloperTask(int projectId, int developerId)
-        {
-            var developerTask = await _mediator
-
-           .Send(new GetDeveloperSprintTaskListQuery
-           {
-               ProjectId = projectId,
-
-               DeveloperId = developerId
-           });
-            return Ok(developerTask);
-        }
+      
 
         [HttpGet("Project/{projectId}/SprintTask/{id}")]
         public async Task<ActionResult<GetSprintTaskDetailsDto>> GetSprintTaskById(int id, int projectId)

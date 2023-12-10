@@ -7,6 +7,8 @@ namespace Application.Commands.SprintCommands.CreateSprint
     {
         public string? SprintName { get;  set; }
         public int ProjectId { get;  set; }
+        public string? SprintDescription { get;  set; }
+
         public DateTime StartDate { get;  set; }
         public DateTime EndDate { get;  set; }
     }

@@ -9,9 +9,20 @@ namespace Application.MappingProfiles
     {
         public DeveloperProfile()
         {
-            CreateMap<Developer, GetDeveloperListDto>();
+            CreateMap<Developer, GetDeveloperListDto>()
+           .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
+           .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
+           .ForMember(dest => dest.ZipCode, opt => opt.MapFrom(src => src.Address.ZipCode))
+           .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.Address.State))
+           .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Address.Country));
 
-            CreateMap<Developer, GetDeveloperDetailsDto>();
+
+            CreateMap<Developer, GetDeveloperDetailsDto>()
+           .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
+           .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
+           .ForMember(dest => dest.ZipCode, opt => opt.MapFrom(src => src.Address.ZipCode))
+           .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.Address.State))
+           .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Address.Country));
 
         }
     }

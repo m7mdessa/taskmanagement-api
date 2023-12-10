@@ -11,7 +11,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Policy = "AdminOnly")]
+    [Authorize(Policy = "AdminAndDeveloperOnly")]
 
     public partial class ProjectsController : ControllerBase
     {
@@ -42,7 +42,7 @@ namespace Api.Controllers
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteProject(int id)
         {
-            var command = new DeleteProjectCommand() { ProjectId = id };
+            var command = new DeleteProjectCommand() { Id = id };
             await _mediator.Send(command);
             return Ok();
         }

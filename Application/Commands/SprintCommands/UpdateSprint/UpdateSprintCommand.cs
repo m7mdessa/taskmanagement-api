@@ -7,5 +7,7 @@ namespace Application.Commands.SprintCommands.UpdateSprint
         public int Id { get; set; }
         public string? SprintName { get;  set; }
         public int ProjectId { get;  set; }
+        public string? SprintDescription { get; set; }
+
     }
 }

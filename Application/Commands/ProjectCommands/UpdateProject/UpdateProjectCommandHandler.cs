@@ -18,7 +18,7 @@ namespace Application.Commands.ProjectCommands.UpdateProject
 
             var project = await _projectRepository.GetByIdAsync(Convert.ToInt32(request.Id));
 
-            project.UpdateProject(request.Id, request.ProjectName);
+            project.UpdateProject(request.Id, request.ProjectName ,request.ProjectDescription);
 
             await _projectRepository.UpdateAsync(project);
             return Unit.Value;

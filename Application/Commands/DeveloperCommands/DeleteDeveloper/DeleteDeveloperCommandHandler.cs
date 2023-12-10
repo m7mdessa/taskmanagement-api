@@ -18,10 +18,7 @@ namespace Application.Commands.DeveloperCommands.DeleteDeveloper
 
         public async Task<Unit> Handle(DeleteDeveloperCommand request, CancellationToken cancellationToken)
         {
-            var developer = await _developerRepository.GetAsync(request.RoleId);
-
-
-            //DeveloperToDelete.RemoveDeveloper(request.DeveloperId);
+            var developer = await _developerRepository.GetAsync(request.Id);
 
             await _developerRepository.DeleteAsync(developer);
 

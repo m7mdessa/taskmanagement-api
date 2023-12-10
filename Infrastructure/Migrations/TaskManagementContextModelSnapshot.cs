@@ -113,6 +113,9 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("ProjectDescription")
+                        .HasColumnType("text");
+
                     b.Property<string>("ProjectName")
                         .HasColumnType("text");
 
@@ -138,6 +141,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("SprintDescription")
+                        .HasColumnType("text");
+
                     b.Property<string>("SprintName")
                         .HasColumnType("text");
 
@@ -162,9 +168,6 @@ namespace Infrastructure.Migrations
                     b.Property<int>("DeveloperId")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("double precision");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -174,8 +177,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("TaskDescription")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("TaskDuration")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("TaskDuration")
+                        .HasColumnType("text");
 
                     b.Property<string>("TaskName")
                         .HasColumnType("text");
@@ -198,23 +201,18 @@ namespace Infrastructure.Migrations
                                 .HasColumnType("integer");
 
                             b1.Property<string>("City")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("Country")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("State")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("Street")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("ZipCode")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.HasKey("DeveloperId");

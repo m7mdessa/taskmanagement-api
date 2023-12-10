@@ -11,7 +11,7 @@ namespace Application.Commands.SprintTaskCommands.CreateSprintTask
         public int ProjectId { get; set; }
 
         public int DeveloperId { get; set; }
-        public DateTime TaskDuration { get;  set; }
+        public string? TaskDuration { get;  set; }
 
 
     }

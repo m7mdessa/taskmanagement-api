@@ -1,4 +1,5 @@
 ﻿
+using Domain.Aggregates.ProjectAggregate;
 using Domain.SharedKernel;
 
 namespace Domain.Aggregates.DeveloperAggregate
@@ -31,7 +32,8 @@ namespace Domain.Aggregates.DeveloperAggregate
 
             AddUserLogin(developerName, password, 3, id);
         }
-      
+
+
         public void UpdateDeveloper(int id,string? firstName, string? lastName, Address address)
         {
             Id = id;
@@ -41,6 +43,18 @@ namespace Domain.Aggregates.DeveloperAggregate
           
         }
 
+        public void UpdatePassword(int developerId, string? password)
+        {
+            var update = UserLogins?.FirstOrDefault(s => s.DeveloperId == developerId);
+
+            if (update != null)
+            {
+
+                update.Update(developerId, password);
+            }
+        }
+
+     
         public void AddUserLogin(string? userName, string? password, int roleId, int developerId)
         {
             var userLogin = new UserLogin(userName, password, roleId, developerId);

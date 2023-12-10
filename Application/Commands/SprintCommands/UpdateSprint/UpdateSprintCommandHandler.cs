@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Domain.Aggregates.ProjectAggregate;
+﻿using Domain.Aggregates.ProjectAggregate;
 using MediatR;
 
 
@@ -24,7 +23,7 @@ namespace Application.Commands.SprintCommands.UpdateSprint
 
             if (project != null)
             {
-                project.UpdateSprint(request.Id, request.ProjectId,request.SprintName);
+                project.UpdateSprint(request.Id, request.ProjectId,request.SprintName,request.SprintDescription);
 
                     await _projectRepository.UpdateAsync(project);
                 

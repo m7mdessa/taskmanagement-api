@@ -14,6 +14,7 @@ namespace Application.Queries.SprintQueries.GetSprintList
         public int ProjectId { get; set; }
         public string? ProjectName { get; set; }
         public string? DeveloperName { get; set; }
+        public string? SprintDescription { get; set; }
 
         public DateTime StartDate { get;  set; }
         public DateTime EndDate { get;  set; }

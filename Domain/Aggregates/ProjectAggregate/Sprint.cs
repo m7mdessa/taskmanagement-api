@@ -7,6 +7,8 @@ namespace Domain.Aggregates.ProjectAggregate
     public class Sprint:BaseEntity, IFullAuditedObject
     {
         public string? SprintName { get; private set; }
+        public string? SprintDescription { get; private set; }
+
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public int ProjectId { get; private set; }
@@ -21,19 +23,21 @@ namespace Domain.Aggregates.ProjectAggregate
         private Sprint() {}
       
 
-        public Sprint(string? sprintName, DateTime startDate, DateTime endDate, int projectId)
+        public Sprint(string? sprintName, DateTime startDate, DateTime endDate, int projectId,string ? sprintDescription)
         {
             SprintName = sprintName;
             StartDate = startDate;
             EndDate = endDate;
             ProjectId = projectId;
+            SprintDescription = sprintDescription;
 
         }
 
-        public void Update(int projectId, string? sprintName)
+        public void Update(int projectId, string? sprintName, string? sprintDescription)
         {
             SprintName = sprintName;
             ProjectId = projectId;
+            SprintDescription = sprintDescription;
 
         }
 
