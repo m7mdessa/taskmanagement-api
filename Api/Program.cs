@@ -36,6 +36,11 @@ using Application.Commands.DeveloperCommands.UpdateDeveloper;
 using Application.Commands.DeveloperCommands.CreateDeveloper;
 using Application.Queries.SprintTaskQueries.GetDeveloperSprintTaskList;
 using Application.Commands.DeveloperCommands.UpdatePassword;
+using FluentValidation;
+using Application.Behaviours;
+using Application.Queries.DeveloperQueries.GetUserLoginDetails;
+using Application.Commands.DeveloperCommands.DeleteUserLogin;
+using Application.Queries.DeveloperQueries.GetUserLoginList;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +71,11 @@ builder.Services.AddTransient<IRequestHandler<UpdatePasswordCommand, Unit>, Upda
 builder.Services.AddTransient<IRequestHandler<GetDeveloperListQuery, List<GetDeveloperListDto>>, GetDeveloperListQueryHandler>();
 builder.Services.AddTransient<IRequestHandler<GetDeveloperDetailsQuery, GetDeveloperDetailsDto>, GetDeveloperDetailsQueryHandler>();
 
+
+builder.Services.AddTransient<IRequestHandler<GetUserLoginListQuery, List<GetUserLoginListDto>>, GetUserLoginListQueryHandler>();
+builder.Services.AddTransient<IRequestHandler<GetUserLoginDetailsQuery, GetUserLoginDetailsDto>, GetUserLoginDetailsQueryHandler>();
+builder.Services.AddTransient<IRequestHandler<DeleteUserLoginCommand, Unit>, DeleteUserLoginCommandHandler>();
+
 builder.Services.AddTransient<IRequestHandler<DeleteSprintTaskCommand, Unit>, DeleteSprintTaskCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<CreateSprintTaskCommand, Unit>, CreateSprintTaskCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<UpdateSprintTaskCommand, Unit>, UpdateSprintTaskCommandHandler>();
@@ -93,9 +103,14 @@ builder.Services.AddScoped<DeveloperNameResolver>();
 builder.Services.AddAutoMapper(typeof(SprintProfile));
 builder.Services.AddAutoMapper(typeof(ProjectProfile));
 builder.Services.AddAutoMapper(typeof(DeveloperProfile));
+builder.Services.AddAutoMapper(typeof(UserLoginProfile));
 
 
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 

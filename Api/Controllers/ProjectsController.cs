@@ -11,7 +11,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "AdminAndDeveloperOnly")]
+    [Authorize(Policy = "AdminOnly")]
 
     public partial class ProjectsController : ControllerBase
     {

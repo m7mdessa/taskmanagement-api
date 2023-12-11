@@ -61,7 +61,17 @@ namespace Domain.Aggregates.DeveloperAggregate
 
             UserLogins.Add(userLogin);
         }
+       
+        public void RemoveUserLogin(int  developerId)
+        {
+            var userLogin = UserLogins?.FirstOrDefault(s => s.DeveloperId == developerId);
 
-        
+            if (userLogin != null)
+            {
+
+                UserLogins?.Remove(userLogin);
+            }
+        }
+
     }
 }

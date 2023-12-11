@@ -1,10 +1,14 @@
 ﻿using Application.Auth;
 using Application.Commands.DeveloperCommands.CreateDeveloper;
 using Application.Commands.DeveloperCommands.DeleteDeveloper;
+using Application.Commands.DeveloperCommands.DeleteUserLogin;
 using Application.Commands.DeveloperCommands.UpdateDeveloper;
 using Application.Commands.DeveloperCommands.UpdatePassword;
 using Application.Queries.DeveloperQueries.GetDeveloperDetails;
 using Application.Queries.DeveloperQueries.GetDeveloperList;
+using Application.Queries.DeveloperQueries.GetUserLoginDetails;
+using Application.Queries.DeveloperQueries.GetUserLoginList;
+using Application.Queries.SprintQueries.GetSprintDetails;
 using Application.Queries.SprintTaskQueries.GetDeveloperSprintTaskList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -37,7 +41,6 @@ namespace Api.Controllers
             return Ok(developers);
         }
 
-
         [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public async Task<ActionResult> CreateDeveloper([FromBody] CreateDeveloperCommand developer)
@@ -68,6 +71,8 @@ namespace Api.Controllers
             return Ok();
         }
 
+        
+
         [Authorize(Policy = "AdminOnly")]
         [HttpGet("GetDeveloperById/{id}")]
         public async Task<ActionResult<GetDeveloperDetailsDto>> GetDeveloperById(int id)
@@ -75,6 +80,8 @@ namespace Api.Controllers
             var developer = await _mediator.Send(new GetDeveloperDetailsQuery { Id = id });
             return Ok(developer);
         }
+
+    
 
 
         [Authorize(Policy = "DeveloperOnly")]
@@ -132,5 +139,43 @@ namespace Api.Controllers
 
 
         }
+
+        [Authorize(Policy = "AdminOnly")]
+        [HttpGet("Developer/{id}/UserLogins")]
+        public async Task<ActionResult<List<GetUserLoginListDto>>> GetAllUserLogins(int id)
+        {
+            var userLogins = await _mediator.Send(new GetUserLoginListQuery { Id = id });
+            return Ok(userLogins);
+        }
+
+        [Authorize(Policy = "AdminOnly")]
+        [HttpGet("Developer/{developerId}/UserLogin/{id}")]
+        public async Task<ActionResult<GetUserLoginDetailsDto>> GetUserLoginById(int id, int developerId)
+        {
+            var userLogin = await _mediator
+           .Send(new GetUserLoginDetailsQuery
+           {
+               DeveloperId = developerId,
+
+               Id = id
+           }
+
+            );
+            return Ok(userLogin);
+        }
+
+
+        [Authorize(Policy = "AdminOnly")]
+        [HttpDelete("DeleteUserLogin/{developerId}")]
+        public async Task<ActionResult> DeleteUserLogin(int developerId)
+        {
+            var command = new DeleteUserLoginCommand() { DeveloperId = developerId };
+
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+
+
     }
 }
