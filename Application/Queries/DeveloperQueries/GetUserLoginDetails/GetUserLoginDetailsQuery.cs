@@ -13,7 +13,6 @@ namespace Application.Queries.DeveloperQueries.GetUserLoginDetails
     public class GetUserLoginDetailsQuery : IRequest<GetUserLoginDetailsDto>
     {
         public int DeveloperId { get; set; }
-        public int Id { get; set; }
 
 
     }

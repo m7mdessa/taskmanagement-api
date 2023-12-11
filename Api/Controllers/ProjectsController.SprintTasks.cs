@@ -12,6 +12,9 @@ namespace Api.Controllers
 
     public partial class ProjectsController : ControllerBase
     {
+        #region SprintTasks
+
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet("Project/{id}/SprintTasks")]
         public async Task<ActionResult<List<GetSprintTaskListDto>>> GetAllSprintTasks(int id)
         {
@@ -19,6 +22,8 @@ namespace Api.Controllers
             return Ok(sprintTasks);
         }
 
+
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost("Project/CreateSprintTask")]
         public async Task<ActionResult> CreateSprintTask([FromBody] CreateSprintTaskCommand sprintTask)
         {
@@ -26,6 +31,7 @@ namespace Api.Controllers
             return Ok();
         }
 
+        [Authorize(Policy = "AdminOnly")]
 
         [HttpDelete("Projects/{projectId}/Sprints/{sprintId}/SprintTask/Delete/{sprintTaskId}")]
         public async Task<IActionResult> DeleteSprintTask(int sprintId, int sprintTaskId, int projectId)
@@ -42,7 +48,8 @@ namespace Api.Controllers
             return Ok();
         }
 
-      
+
+        [Authorize(Policy = "AdminOnly")]
 
         [HttpGet("Project/{projectId}/SprintTask/{id}")]
         public async Task<ActionResult<GetSprintTaskDetailsDto>> GetSprintTaskById(int id, int projectId)
@@ -58,6 +65,9 @@ namespace Api.Controllers
             return Ok(sprintTask);
         }
 
+
+        [Authorize(Policy = "AdminOnly")]
+
         [HttpPut("Project/SprintTask/Update")]
         public async Task<ActionResult> UpdateSprintTask([FromBody] UpdateSprintTaskCommand sprintTask)
         {
@@ -66,5 +76,8 @@ namespace Api.Controllers
             return Ok();
 
         }
+
+        #endregion
+
     }
 }

@@ -8,7 +8,6 @@ using Application.Queries.DeveloperQueries.GetDeveloperDetails;
 using Application.Queries.DeveloperQueries.GetDeveloperList;
 using Application.Queries.DeveloperQueries.GetUserLoginDetails;
 using Application.Queries.DeveloperQueries.GetUserLoginList;
-using Application.Queries.SprintQueries.GetSprintDetails;
 using Application.Queries.SprintTaskQueries.GetDeveloperSprintTaskList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -21,6 +20,7 @@ namespace Api.Controllers
 
     public partial class DevelopersController : ControllerBase
     {
+        #region Developers
 
         private readonly IMediator _mediator;
         private readonly IAuthService _authService;
@@ -149,15 +149,14 @@ namespace Api.Controllers
         }
 
         [Authorize(Policy = "AdminOnly")]
-        [HttpGet("Developer/{developerId}/UserLogin/{id}")]
-        public async Task<ActionResult<GetUserLoginDetailsDto>> GetUserLoginById(int id, int developerId)
+        [HttpGet("UserLogin/{developerId}")]
+        public async Task<ActionResult<GetUserLoginDetailsDto>> GetUserLoginById( int developerId)
         {
             var userLogin = await _mediator
            .Send(new GetUserLoginDetailsQuery
            {
                DeveloperId = developerId,
 
-               Id = id
            }
 
             );
@@ -175,6 +174,8 @@ namespace Api.Controllers
             return Ok();
         }
 
+
+        #endregion
 
 
     }

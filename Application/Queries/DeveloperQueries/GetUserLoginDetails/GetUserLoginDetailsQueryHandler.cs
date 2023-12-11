@@ -29,12 +29,12 @@ namespace Application.Queries.DeveloperQueries.GetUserLoginDetails
         {
 
            
-            var developer = await _developerRepository.GetByIdAsync(request.DeveloperId,u=>u.UserLogins);
+            var developer = await _developerRepository.GetDeveloperChildsAsync(request.DeveloperId);
 
-            var userLogin = developer.UserLogins.FirstOrDefault(s => s.Id == request.Id);
+            var userLogin = developer.UserLogins.FirstOrDefault(s => s.DeveloperId == request.DeveloperId);
 
 
-            var data = _mapper.Map<GetUserLoginDetailsDto>(developer);
+            var data = _mapper.Map<GetUserLoginDetailsDto>(userLogin);
 
             return data;
         }

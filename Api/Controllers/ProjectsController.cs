@@ -11,10 +11,11 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "AdminOnly")]
 
     public partial class ProjectsController : ControllerBase
     {
+        #region Projects
+
         private readonly IMediator _mediator;
 
         public ProjectsController(IMediator mediator)
@@ -31,6 +32,7 @@ namespace Api.Controllers
             return Ok(projects);
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public async Task<ActionResult> CreateProject([FromBody] CreateProjectCommand project)
         {
@@ -38,7 +40,7 @@ namespace Api.Controllers
             return Ok();
         }
 
-
+        [Authorize(Policy = "AdminOnly")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteProject(int id)
         {
@@ -47,6 +49,8 @@ namespace Api.Controllers
             return Ok();
         }
 
+
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet("GetProjectById/{id}")]
         public async Task<ActionResult<GetProjectDetailsDto>> GetProjecById(int id)
         {
@@ -54,6 +58,7 @@ namespace Api.Controllers
             return Ok(Tasks);
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpPut("Update")]
         public async Task<ActionResult> UpdateProject([FromBody] UpdateProjectCommand project)
         {
@@ -62,5 +67,7 @@ namespace Api.Controllers
             return Ok();
 
         }
+
+        #endregion
     }
 }

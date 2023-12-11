@@ -18,13 +18,17 @@ namespace Domain.Aggregates.ProjectAggregate
 
 
         private Project() {}
-           
+
+        #region default constructor
         public Project(string projectName, string pojectDescription) 
         {
             ProjectName = projectName;
             ProjectDescription = pojectDescription;
         }
+        #endregion
 
+
+        #region UpdateProject
         public void UpdateProject(int id,string projectName, string pojectDescription)
         {
             Id = id;
@@ -32,7 +36,9 @@ namespace Domain.Aggregates.ProjectAggregate
             ProjectDescription = pojectDescription;
 
         }
+        #endregion
 
+        #region RemoveProject
         public void RemoveProject(int id)
         {
             var removeProject = _sprints?.SingleOrDefault(e => e.ProjectId == id);
@@ -42,13 +48,18 @@ namespace Domain.Aggregates.ProjectAggregate
 
             }
         }
-     
+        #endregion
+
+        #region AddSprint
         public void AddSprint(Sprint addSprint)
         {
 
             _sprints?.Add(addSprint);
         }
+        #endregion
 
+
+        #region UpdateSprint
         public void UpdateSprint(int id, int projectId, string sprintName, string? sprintDescription)
         {
             var update = _sprints?.FirstOrDefault(s => s.Id == id);
@@ -60,11 +71,17 @@ namespace Domain.Aggregates.ProjectAggregate
 
         }
 
+        #endregion
+
+
+        #region RemoveSprint
         public void RemoveSprint(Sprint sprint)
         {
             _sprints.Remove(sprint);
         }
+        #endregion
 
+        #region AddSprintTaskToSprint
 
         public void AddSprintTaskToSprint(int sprintId, SprintTask sprintTask)
         {
@@ -74,8 +91,10 @@ namespace Domain.Aggregates.ProjectAggregate
                 sprint.AddSprintTask(sprintTask);
             }
         }
+        #endregion
 
 
+        #region RemoveSprintTask
         public void RemoveSprintTask(int sprintId, SprintTask sprintTask)
         {
             var sprint = _sprints?.FirstOrDefault(s => s.Id == sprintId);
@@ -87,7 +106,9 @@ namespace Domain.Aggregates.ProjectAggregate
             }
         }
 
+        #endregion
 
+        #region UpdateSprintTask
 
         public void UpdateSprintTask(int id, int sprintId, string? taskName, string? taskDescription, int developerId, string? taskStatus)
         {
@@ -98,6 +119,7 @@ namespace Domain.Aggregates.ProjectAggregate
                 sprint.UpdateSprintTask(id, sprintId, taskName, taskDescription, developerId, taskStatus);
             }
         }
+        #endregion
 
 
 
