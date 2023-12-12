@@ -41,7 +41,10 @@ namespace Domain.Aggregates.ProjectAggregate
 
 
         }
-      
 
+        public void SoftDelete()
+        {
+            IsDeleted = true;
+        }
     }
 }

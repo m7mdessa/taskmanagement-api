@@ -26,12 +26,12 @@ namespace Application.Commands.SprintTaskCommands.DeleteSprintTask
 
                 if (sprint != null)
                 {
-                    var sprintTask = sprint.SprintTasks.FirstOrDefault(s => s.Id == request.SprintTaskId);
+                    var sprintTask = sprint.SprintTasks.FirstOrDefault(s => s.Id == request.SprintTaskId && !s.IsDeleted);
 
                     if (sprintTask != null)
                     {
 
-                        project.RemoveSprintTask(request.SprintId, sprintTask);
+                        await _projectRepository.SoftDeleteSprintTaskAsync(request.ProjectId, request.SprintId, request.SprintTaskId);
 
                         await _projectRepository.UpdateAsync(project);
                     }

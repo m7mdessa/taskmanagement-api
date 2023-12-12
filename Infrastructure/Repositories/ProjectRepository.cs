@@ -26,7 +26,27 @@ namespace Infrastructure.Repositories
           
         }
 
+        public async Task SoftDeleteSprintTaskAsync(int projectId, int sprintId, int sprintTaskId)
+        {
+            var project = await _context.Projects.FindAsync(projectId);
 
+            if (project != null)
+            {
+                var sprint = project.Sprints.FirstOrDefault(s => s.Id == sprintId);
+
+                if (sprint != null)
+                {
+                    var sprintTask = sprint.SprintTasks.FirstOrDefault(s => s.Id == sprintTaskId && !s.IsDeleted);
+
+                    if (sprintTask != null)
+                    {
+                        sprintTask.SoftDelete();
+                        _context.Entry(sprintTask).State = EntityState.Modified;
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
+        }
 
 
     }

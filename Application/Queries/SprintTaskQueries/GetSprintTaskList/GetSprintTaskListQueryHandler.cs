@@ -22,7 +22,7 @@ namespace Application.Queries.SprintTaskQueries.GetSprintTaskList
         {
             var project = await _projectRepository.GetProjectChildsAsync(request.Id);
 
-            var sprintTasks = project.Sprints.SelectMany(s => s.SprintTasks);
+            var sprintTasks = project.Sprints.SelectMany(st => st.SprintTasks).Where(st => !st.IsDeleted);
 
             var result = _mapper.Map<List<GetSprintTaskListDto>>(sprintTasks);
 
