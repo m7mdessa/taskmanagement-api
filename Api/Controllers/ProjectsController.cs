@@ -3,6 +3,7 @@ using Application.Commands.ProjectCommands.DeleteProject;
 using Application.Commands.ProjectCommands.UpdateProject;
 using Application.Queries.ProjectQueries.GetProjectDetails;
 using Application.Queries.ProjectQueries.GetProjectList;
+using Domain.Aggregates.ProjectAggregate;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,13 @@ namespace Api.Controllers
         #region Projects
 
         private readonly IMediator _mediator;
+        private readonly IProjectRepository _projectRepository;
 
-        public ProjectsController(IMediator mediator)
+      
+        public ProjectsController(IMediator mediator, IProjectRepository projectRepository)
         {
             _mediator = mediator;
+            _projectRepository = projectRepository;
 
         }
 

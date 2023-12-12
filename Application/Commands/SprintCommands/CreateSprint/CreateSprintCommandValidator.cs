@@ -16,13 +16,18 @@ namespace Application.Commands.SprintCommands.CreateSprint
             RuleFor(p => p.ProjectId)
                .NotNull()
                .MustAsync(ProjectMustExist)
-               .WithMessage("{ProjectId} must be present");
+               .WithMessage("{PropertyName} must be present");
 
             RuleFor(p => p.SprintName)
-                .NotEmpty().WithMessage("{SprintName} is required.")
+                .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull()
-                .MaximumLength(50).WithMessage("{SprintName} must not exceed 50 characters.");
+                .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
 
+           RuleFor(p => p.SprintDescription)
+                .NotEmpty().WithMessage("{PropertyName} is required.")
+                .NotNull()
+                .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
+             
 
         }
         private async Task<bool> ProjectMustExist(int id, CancellationToken arg2)

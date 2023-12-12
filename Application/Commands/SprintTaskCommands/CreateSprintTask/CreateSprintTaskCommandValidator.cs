@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Domain.Aggregates.DeveloperAggregate;
 using Domain.Aggregates.ProjectAggregate;
 
 namespace Application.Commands.SprintTaskCommands.CreateSprintTask
@@ -17,17 +16,17 @@ namespace Application.Commands.SprintTaskCommands.CreateSprintTask
             RuleFor(p => p.ProjectId)
                .NotNull()
                .MustAsync(ProjectMustExist)
-               .WithMessage("{ProjectId} must be present");
+               .WithMessage("{PropertyName} must be present");
 
             RuleFor(p => p.TaskName)
-                     .NotEmpty().WithMessage("{TaskName} is required.")
+                     .NotEmpty().WithMessage("{PropertyName} is required.")
                      .NotNull()
-                     .MaximumLength(50).WithMessage("{TaskName} must not exceed 50 characters.");
+                     .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
 
             RuleFor(p => p.TaskDescription)
-            .NotEmpty().WithMessage("{TaskDescription} is required.")
+            .NotEmpty().WithMessage("{PropertyName} is required.")
             .NotNull()
-            .MaximumLength(50).WithMessage("{TaskDescription} must not exceed 50 characters.");
+            .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
 
 
         }
@@ -36,5 +35,6 @@ namespace Application.Commands.SprintTaskCommands.CreateSprintTask
             var project = await _projectRepository.GetAsync(id);
             return project != null;
         }
+
     }
 }

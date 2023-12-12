@@ -15,7 +15,21 @@ namespace Application.Commands.SprintTaskCommands.UpdateSprintTask
         {
             _projectRepository = projectRepository;
 
-                    
+            RuleFor(p => p.ProjectId)
+               .NotNull()
+               .MustAsync(ProjectMustExist)
+               .WithMessage("{PropertyName} must be present");
+
+            RuleFor(p => p.TaskName)
+                     .NotEmpty().WithMessage("{PropertyName} is required.")
+                     .NotNull()
+                     .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
+
+            RuleFor(p => p.TaskDescription)
+            .NotEmpty().WithMessage("{PropertyName} is required.")
+            .NotNull()
+            .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
+
 
 
         }

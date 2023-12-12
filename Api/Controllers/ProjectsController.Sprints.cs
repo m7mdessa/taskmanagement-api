@@ -1,8 +1,11 @@
 ﻿using Application.Commands.SprintCommands.CreateSprint;
 using Application.Commands.SprintCommands.DeleteSprint;
 using Application.Commands.SprintCommands.UpdateSprint;
+using Application.Commands.SprintTaskCommands.UpdateSprintTask;
 using Application.Queries.SprintQueries.GetSprintDetails;
 using Application.Queries.SprintQueries.GetSprintList;
+using Domain.Aggregates.ProjectAggregate;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +30,21 @@ namespace Api.Controllers
         [HttpPost("Project/CreateSprint")]
         public async Task<ActionResult> CreateSprint([FromBody] CreateSprintCommand sprint)
         {
-            await _mediator.Send(sprint);
-            return Ok();
+            var sprintTaskValidator = new CreateSprintCommandValidator(_projectRepository);
+
+            var validationResult = await sprintTaskValidator.ValidateAsync(sprint);
+
+            if (validationResult.IsValid)
+            {
+
+                await _mediator.Send(sprint);
+                return Ok(sprint);
+
+            }
+
+            var errorMessages = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+            return BadRequest(errorMessages);
+
         }
 
         [Authorize(Policy = "AdminOnly")]
@@ -67,8 +83,22 @@ namespace Api.Controllers
         public async Task<ActionResult> UpdateSprint([FromBody] UpdateSprintCommand sprint)
         {
 
-            await _mediator.Send(sprint);
-            return Ok();
+
+            var sprintTaskValidator = new UpdateSprintCommandValidator(_projectRepository);
+
+            var validationResult = await sprintTaskValidator.ValidateAsync(sprint);
+
+            if (validationResult.IsValid)
+            {
+
+                await _mediator.Send(sprint);
+                return Ok(sprint);
+
+            }
+
+            var errorMessages = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+            return BadRequest(errorMessages);
+        
 
         }
 
